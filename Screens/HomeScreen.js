@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, alert, TouchableOpacity } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faComments } from '@fortawesome/free-solid-svg-icons';
 
 const Welcome = ({ username }) => {
   return (
@@ -11,7 +9,7 @@ const Welcome = ({ username }) => {
   );
 };
 
-const ProfessionalsList = () => {
+const ProfessionalsList = ({navigation}) => {
   const [professionals, setProfessionals] = useState([]);
 
   useEffect(() => {
@@ -35,10 +33,10 @@ const ProfessionalsList = () => {
   }, []);
   
 
-  const renderItem = ({ navigation,item }) => {
+  const renderItem = ({ item }) => {
     
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('DetailsScreen', { id: item._id })}>
+        <TouchableOpacity onPress={() => navigation.navigate('DetailScreen', { professional: item })}>
         <View style={styles.professionalContainer}>
           <Text style={styles.professionalName}>{item.email}</Text>
           <Text style={styles.professionalProfession}>{item.profession}</Text>
@@ -66,7 +64,7 @@ const HomeScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <Welcome username={username} />
-      <ProfessionalsList />
+      <ProfessionalsList navigation={navigation}  />
     </View>
   );
 };
