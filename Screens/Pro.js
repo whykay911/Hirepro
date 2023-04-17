@@ -8,7 +8,7 @@ const Pro = ({ navigation }) => {
   const handleLogin = async () => {
     if (email && password) {
       try {
-        const response = await fetch('http://192.168.192.1:3000/prologin', {
+        const response = await fetch('http://192.168.2.13:3000/prologin', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

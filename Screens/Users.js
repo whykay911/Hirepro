@@ -8,7 +8,7 @@ const Users = ({ navigation }) => {
   const handleLogin = async () => {
     if (username && password) {
       try {
-        const response = await fetch('http://192.168.192.1:3000/login', {
+        const response = await fetch('http://192.168.2.13:3000/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

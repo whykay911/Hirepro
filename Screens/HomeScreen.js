@@ -14,7 +14,7 @@ const ProfessionalsList = ({navigation}) => {
 
   useEffect(() => {
     const fetchProfessionals = async () => {
-        const response = await fetch('http://192.168.192.1:3000/professionals');
+        const response = await fetch('http://192.168.2.13:3000/professionals');
         try {
           if (response.status === 200) {
             const data = await response.json();

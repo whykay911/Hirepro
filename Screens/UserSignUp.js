@@ -10,7 +10,7 @@ const UserSignUP = ({ navigation }) => {
     if (username && password && confirmPassword) {
       if (password === confirmPassword) {
         try {
-          const response = await fetch('http://192.168.192.1:3000/signup', {
+          const response = await fetch('http://192.168.2.13:3000/signup', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

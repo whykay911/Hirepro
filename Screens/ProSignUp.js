@@ -13,7 +13,7 @@ const ProSignUp = ({ navigation }) => {
     if (email && password && confirmPassword) {
       if (password === confirmPassword) {
         try {
-          const response = await fetch('http://192.168.192.1:3000/prosignup', {
+          const response = await fetch('http://192.168.2.13:3000/prosignup', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
