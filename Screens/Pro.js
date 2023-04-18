@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 const Pro = ({ navigation }) => {
-  const [email, seEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
@@ -20,7 +20,7 @@ const Pro = ({ navigation }) => {
         console.log(data);
 
         if (response.status === 200) {
-          navigation.navigate('Pro');
+          navigation.navigate('ProHomeScreen', {email:email});
         } else {
           alert('Invalid Email or password. Please try again.');
         }

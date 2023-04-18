@@ -45,6 +45,21 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.post("/proLogin", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const pro = await Pro.findOne({ email, password });
+    if (pro) {
+      res.json({ success: true });
+    } else {
+      res.json({ success: false });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false });
+  }
+});
+
 app.post("/prosignup", async (req, res) => {
   const { name, email, password, profession, hourly } = req.body;
   const pro = new Pro({ name, email, password, profession, hourly });

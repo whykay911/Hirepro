@@ -8,6 +8,7 @@ import Pro from './Screens/Pro';
 import ProSignUp from './Screens/ProSignUp';
 import HomeScreen from './Screens/HomeScreen';
 import { DetailScreen, DetailTabNavigator } from './Screens/DetailScreen';
+import ProHomeScreen from './Screens/ProHomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ const App = () => {
         <Stack.Screen name="UserSignUp" component={UserSignUP} />
         <Stack.Screen name="Pro" component={Pro} />
         <Stack.Screen name="ProSignUp" component={ProSignUp} />
+        <Stack.Screen name="ProHomeScreen" component={ProHomeScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen
           name="DetailScreen"
