@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, alert, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, alert, TouchableOpacity, TextInput } from 'react-native';
 
 const Welcome = ({ username }) => {
   return (
+    
     <View style={styles.welcomeContainer}>
       <Text style={styles.welcomeText}>Welcome, {username}!</Text>
     </View>
@@ -11,10 +12,11 @@ const Welcome = ({ username }) => {
 
 const ProfessionalsList = ({navigation}) => {
   const [professionals, setProfessionals] = useState([]);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     const fetchProfessionals = async () => {
-        const response = await fetch('http://192.168.2.24:3000/professionals');
+        const response = await fetch('http://192.168.206.155:3000/professionals');
         try {
           if (response.status === 200) {
             const data = await response.json();
@@ -31,12 +33,16 @@ const ProfessionalsList = ({navigation}) => {
     };
     fetchProfessionals();
   }, []);
-  
+
+  const filteredProfessionals = professionals.filter(
+    (professional) =>
+      professional.email.toLowerCase().includes(searchText.toLowerCase()) ||
+      professional.profession.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   const renderItem = ({ item }) => {
-    
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('DetailScreen', { professional: item })}>
+      <TouchableOpacity onPress={() => navigation.navigate('DetailScreen', { professional: item })}>
         <View style={styles.professionalContainer}>
           <Text style={styles.professionalName}>{item.email}</Text>
           <Text style={styles.professionalProfession}>{item.profession}</Text>
@@ -45,12 +51,18 @@ const ProfessionalsList = ({navigation}) => {
       </TouchableOpacity>
     );
   };
-  
-    return (
+
+  return (
     <View style={styles.professionalsListContainer}>
       <Text style={styles.professionalsListTitle}>List of professionals</Text>
+      <TextInput
+        style={styles.searchBar}
+        placeholder="Search by email or profession"
+        onChangeText={setSearchText}
+        value={searchText}
+      />
       <FlatList
-        data={professionals}
+        data={filteredProfessionals}
         renderItem={renderItem}
         keyExtractor={(item) => item._id}
       />
@@ -64,7 +76,7 @@ const HomeScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <Welcome username={username} />
-      <ProfessionalsList navigation={navigation}  />
+      <ProfessionalsList navigation={navigation} />
     </View>
   );
 };
@@ -112,6 +124,29 @@ const styles = StyleSheet.create({
   professionalHourly: {
     fontSize: 14,
   },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  searchInput: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 10,
+    fontSize: 16,
+  },
+  searchButton: {
+    backgroundColor: '#007AFF',
+    padding: 10,
+    borderRadius: 5,
+  },
+  searchButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
-
 export default HomeScreen;

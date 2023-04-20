@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 
 const Users = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -8,7 +8,7 @@ const Users = ({ navigation }) => {
   const handleLogin = async () => {
     if (username && password) {
       try {
-        const response = await fetch('http://192.168.2.24:3000/login', {
+        const response = await fetch('http://192.168.206.155:3000/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -34,6 +34,10 @@ const Users = ({ navigation }) => {
   };
 
   return (
+    <ImageBackground
+      style={styles.background}
+      source={require('./pexels-tim-mossholder-2432221.jpg')}
+    >
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
       <TextInput
@@ -57,15 +61,20 @@ const Users = ({ navigation }) => {
     </TouchableOpacity>
       </Text>
     </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent', // make the background transparent so the image shows through
   },
   title: {
     fontSize: 32,
@@ -79,6 +88,7 @@ const styles = StyleSheet.create({
     padding: 8,
     marginVertical: 8,
     minWidth: 250,
+    backgroundColor: 'white',
   },
   button: {
     backgroundColor: 'blue',

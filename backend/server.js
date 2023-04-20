@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const db = 'mongodb+srv://admin:admin@cluster0.spr2n.mongodb.net/HandyCleaners';
+const db = 'mongodb+srv://admin1:password1234@cluster0.5fkzixe.mongodb.net/HandyCleaners2';
 
 mongoose.connect(db, {
     useNewUrlParser: true,
@@ -46,8 +46,8 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/prosignup", async (req, res) => {
-  const { name, email, password, profession, hourly } = req.body;
-  const pro = new Pro({ name, email, password, profession, hourly });
+  const { name, email, password, profession, description, hourly } = req.body;
+  const pro = new Pro({ name, email, password, profession, description, hourly });
   try {
     await pro.save();
     res.json({ success: true });

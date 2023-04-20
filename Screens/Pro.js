@@ -1,14 +1,15 @@
+
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 
 const Pro = ({ navigation }) => {
-  const [email, seEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
     if (email && password) {
       try {
-        const response = await fetch('http://192.168.2.24:3000/prologin', {
+        const response = await fetch('http://192.168.206.155:3000/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -20,20 +21,24 @@ const Pro = ({ navigation }) => {
         console.log(data);
 
         if (response.status === 200) {
-          navigation.navigate('Pro');
+          navigation.navigate('ProHome2', { email: email });
         } else {
-          alert('Invalid Email or password. Please try again.');
+          alert('Invalid username or password. Please try again.');
         }
       } catch (error) {
         console.error(error);
         alert('An error occurred while logging in. Please try again later.');
       }
     } else {
-      alert('Please enter your Email and password.');
+      alert('Please enter your username and password.');
     }
   };
 
   return (
+    <ImageBackground
+      style={styles.background}
+      source={require('./pexels-luis-quintero-1659747.jpg')}
+    >
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
       <TextInput
@@ -41,6 +46,7 @@ const Pro = ({ navigation }) => {
         placeholder="Email"
         value={email}
         onChangeText={(text) => setEmail(text)}
+        background='#fff'
       />
       <TextInput
         style={styles.input}
@@ -57,15 +63,20 @@ const Pro = ({ navigation }) => {
     </TouchableOpacity>
       </Text>
     </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
   },
   title: {
     fontSize: 32,

@@ -7,18 +7,19 @@ const ProSignUp = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [profession, setProfession] = useState('');
+  const [description, setDescription] = useState('');
   const [hourly, setHourly] = useState('');
 
   const handleSignUp = async () => {
     if (email && password && confirmPassword) {
       if (password === confirmPassword) {
         try {
-          const response = await fetch('http://192.168.2.24:3000/prosignup', {
+          const response = await fetch('http://192.168.206.155:3000/prosignup', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, name, password, profession, hourly }),
+            body: JSON.stringify({ email, name, password, profession,description, hourly }),
           });
 
           const data = await response.json();
@@ -71,6 +72,12 @@ const ProSignUp = ({ navigation }) => {
         placeholder="Profession"
         onChangeText={(text) => setProfession(text)}
         value={profession}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Description"
+        onChangeText={(text) => setDescription(text)}
+        value={description}
       />
       <TextInput
         style={styles.input}
